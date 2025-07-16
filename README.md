@@ -11,7 +11,7 @@ OasisProtocol is an open-source project focused on HTML-based development. The r
 
 We, Team 404, work together as one to achieve our goals. Meet our contributors:
 
-- [kaush-r](https://github.com/kaush-r)
+- [kaush-r](https://github.com/kaush-r) --> Team Leader
 - [ChaXRium](https://github.com/ChaXRium) 
 - [shehan20040221](https://github.com/shehan20040221)
 - [ssdweerasinghe](https://github.com/ssdweerasinghe)
