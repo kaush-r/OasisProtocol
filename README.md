@@ -31,15 +31,10 @@ To get started:
    git clone https://github.com/kaush-r/OasisProtocol.git
    ```
 2. Open the project files in your preferred code editor.
-3. (Add specific setup or usage instructions here)
 
 ## Contributing
 
 We welcome contributions from all team members and the wider community. Please submit issues or pull requests for improvements.
-
-## License
-
--
 
 ## Contact
 
