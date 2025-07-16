@@ -47,39 +47,70 @@ app.get('/api/teams', (req, res) => {
 
 app.post('/api/teams', (req, res) => {
   console.log('POST /api/teams called with:', req.body);
-  const teamName = req.body.teamName;
   
-  if (!teamName) {
-    return res.status(400).json({ message: 'Team name is required' });
+  try {
+    const teamName = req.body.teamName;
+    
+    if (!teamName || typeof teamName !== 'string') {
+      return res.status(400).json({ 
+        message: 'Team name is required and must be a string',
+        error: 'INVALID_INPUT'
+      });
+    }
+    
+    const trimmedName = teamName.trim();
+    if (trimmedName.length === 0) {
+      return res.status(400).json({ 
+        message: 'Team name cannot be empty',
+        error: 'EMPTY_NAME'
+      });
+    }
+    
+    if (trimmedName.length > 50) {
+      return res.status(400).json({ 
+        message: 'Team name must be 50 characters or less',
+        error: 'NAME_TOO_LONG'
+      });
+    }
+    
+    // Check if team already exists
+    const existingTeam = registeredTeams.find(team => 
+      team.name.toLowerCase() === trimmedName.toLowerCase()
+    );
+    
+    if (existingTeam) {
+      return res.status(409).json({ 
+        message: 'Team name already exists. Please choose a different name.',
+        error: 'DUPLICATE_NAME'
+      });
+    }
+    
+    // Create new team entry
+    const newTeam = {
+      id: registeredTeams.length + 1,
+      name: trimmedName,
+      registeredAt: new Date().toISOString()
+    };
+    
+    // Store the team
+    registeredTeams.push(newTeam);
+    
+    console.log('New team registered:', trimmedName);
+    console.log('Total teams:', registeredTeams.length);
+    
+    res.status(201).json({ 
+      message: 'Team registered successfully!', 
+      team: newTeam,
+      totalTeams: registeredTeams.length
+    });
+    
+  } catch (error) {
+    console.error('Error processing team registration:', error);
+    res.status(500).json({
+      message: 'Internal server error',
+      error: 'SERVER_ERROR'
+    });
   }
-  
-  // Check if team already exists
-  const existingTeam = registeredTeams.find(team => 
-    team.name.toLowerCase() === teamName.toLowerCase()
-  );
-  
-  if (existingTeam) {
-    return res.status(400).json({ message: 'Team name already exists' });
-  }
-  
-  // Create new team entry
-  const newTeam = {
-    id: registeredTeams.length + 1,
-    name: teamName.trim(),
-    registeredAt: new Date().toISOString()
-  };
-  
-  // Store the team
-  registeredTeams.push(newTeam);
-  
-  console.log('New team registered:', teamName);
-  console.log('Total teams:', registeredTeams.length);
-  
-  res.json({ 
-    message: 'Team registered successfully!', 
-    team: newTeam,
-    totalTeams: registeredTeams.length
-  });
 });
 
 app.get('/teams', (req, res) => {
@@ -143,6 +174,23 @@ app.get('/teams', (req, res) => {
   `;
   
   res.send(html);
+});
+
+// Global error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  res.status(500).json({
+    message: 'Something went wrong!',
+    error: 'INTERNAL_ERROR'
+  });
+});
+
+// 404 handler - must be last
+app.all('*', (req, res) => {
+  res.status(404).json({
+    message: `Route ${req.method} ${req.originalUrl} not found`,
+    error: 'NOT_FOUND'
+  });
 });
 
 app.listen(port, () => {

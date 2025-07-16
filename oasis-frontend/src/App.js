@@ -18,15 +18,19 @@ function App() {
   const fetchTeams = async () => {
     try {
       setLoadingTeams(true);
+      setMessage(''); // Clear any existing messages
       const response = await fetch(API_URL);
-      const data = await response.json();
-      if (response.ok) {
-        setTeams(data.teams);
-      } else {
-        setMessage(data.message || 'Failed to fetch teams');
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+      
+      const data = await response.json();
+      setTeams(data.teams || []);
     } catch (error) {
-      setMessage('Network error. Could not fetch teams.');
+      console.error('Error fetching teams:', error);
+      setMessage('Network error. Could not fetch teams. Please check if the backend is running.');
+      setTeams([]); // Reset teams on error
     } finally {
       setLoadingTeams(false);
     }
@@ -44,6 +48,7 @@ function App() {
     setMessage('Connecting to backend...');
 
     try {
+      console.log('Sending request to:', API_URL);
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
@@ -52,20 +57,22 @@ function App() {
         body: JSON.stringify({ teamName: teamName.trim() }),
       });
 
+      console.log('Response status:', response.status);
+      
       if (response.ok) {
         const data = await response.json();
         setMessage('Team registered successfully!');
         setTeamName(''); // Clear the form
-        fetchTeams(); // Refresh the teams list
+        await fetchTeams(); // Refresh the teams list
         console.log('Success:', data);
       } else {
-        const errorData = await response.json();
-        setMessage(errorData.message || 'Failed to register team');
+        const errorData = await response.json().catch(() => ({ message: 'Unknown error' }));
+        setMessage(errorData.message || `Failed to register team (${response.status})`);
         console.log('Error response:', errorData);
       }
     } catch (error) {
       console.error('Network error:', error);
-      setMessage('Network error. Please check if the backend is running.');
+      setMessage('Network error. Please check if the backend is running on http://localhost:3001');
     } finally {
       setIsSubmitting(false);
     }
@@ -98,17 +105,26 @@ function App() {
           )}
         </form>
         <div className="teams-list">
-          <h2>Registered Teams</h2>
+          <h2>Registered Teams ({teams.length})</h2>
           <button onClick={fetchTeams} disabled={loadingTeams}>
-            {loadingTeams ? 'Loading...' : 'Refresh List'}
+            {loadingTeams ? '🔄 Loading...' : '🔄 Refresh List'}
           </button>
           {loadingTeams ? (
-            <p>Loading teams...</p>
+            <div className="loading-state">
+              <p>Loading teams...</p>
+            </div>
+          ) : teams.length === 0 ? (
+            <div className="empty-state">
+              <p>No teams registered yet. Be the first to register!</p>
+            </div>
           ) : (
             <ul>
               {teams.map((team) => (
                 <li key={team.id}>
-                  {team.name} - <span>Registered on {new Date(team.registeredAt).toLocaleDateString()}</span>
+                  <span className="team-name">{team.name}</span>
+                  <span className="team-date">
+                    Registered on {new Date(team.registeredAt).toLocaleDateString()}
+                  </span>
                 </li>
               ))}
             </ul>

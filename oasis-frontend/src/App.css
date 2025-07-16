@@ -184,6 +184,35 @@
   color: #777;
 }
 
+.team-name {
+  font-weight: 600;
+  font-size: 16px !important;
+  color: #333 !important;
+}
+
+.team-date {
+  font-size: 12px !important;
+  color: #777 !important;
+}
+
+.loading-state, .empty-state {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-style: italic;
+}
+
+.empty-state {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  border: 2px dashed #ccc;
+}
+
+.loading-state {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+}
+
 .App-link {
   color: #61dafb;
 }
