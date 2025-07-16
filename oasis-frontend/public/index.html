@@ -27,6 +27,80 @@
     <title>React App</title>
   </head>
   <body>
+    <div class="container">
+    <div class="left">
+      <div class="samurai-bg">
+        <div class="floating-particles"></div>
+        <div class="samurai-silhouette"></div>
+      </div>
+    </div>
+    
+    <div class="right">
+      <div class="register-box">
+        <div class="logo">
+          <h1>OASIS</h1>
+          <p>Join The Protocol</p>
+        </div>
+
+        <div class="success-message" id="successMessage">
+          Registration successful! You can now login.
+        </div>
+
+        <div class="error-message" id="errorMessage">
+          Please fill in all required fields.
+        </div>
+
+        <form id="registerForm">
+          <div class="form-group">
+            <label for="teamName">Team Name</label>
+            <input type="text" id="teamName" placeholder="Enter your team name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="Enter your email address" required>
+          </div>
+
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Choose a username" required>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-wrapper">
+              <input type="password" id="password" placeholder="Create a secure password" required>
+              <span class="password-toggle" onclick="togglePassword('password')">👁️</span>
+            </div>
+            <div class="strength-meter">
+              <div class="strength-fill" id="strengthFill"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <div class="input-wrapper">
+              <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+              <span class="password-toggle" onclick="togglePassword('confirmPassword')">👁️</span>
+            </div>
+          </div>
+
+          <div class="terms-checkbox">
+            <input type="checkbox" id="terms" required>
+            <label for="terms">
+              I agree to the <a href="#" onclick="showTerms()">Terms of Service</a> and <a href="#" onclick="showPrivacy()">Privacy Policy</a>
+            </label>
+          </div>
+
+          <button type="submit" class="register-btn">Create Account</button>
+        </form>
+
+        <div class="login-link">
+          Already have an account? <a href="#" onclick="goToLogin()">Login here</a>
+        </div>
+      </div>
+    </div>
+  </div>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
