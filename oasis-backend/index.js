@@ -133,10 +133,6 @@ app.post('/api/teams', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
-<<<<<<< HEAD
   console.log(`📊 View teams: http://localhost:${port}/teams`);
   console.log(`📋 JSON API: http://localhost:${port}/api/teams`);
 });
-=======
-});
->>>>>>> 437d710a4e5659382dfe2343fbc3afa6b6ad2d77
