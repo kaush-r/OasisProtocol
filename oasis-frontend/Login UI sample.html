@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OASIS Login</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "poppins", sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      background: #f6f6f6;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      width: 100%;
+      flex-direction: row;
+    }
+
+    .left {
+      width: 50%;
+    }
+
+    .left img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .right {
+      width: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .tabs button {
+      padding: 10px 20px;
+      border: none;
+      background: #f0e6d2;
+      color: #333;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 30px;
+      margin: 0 5px;
+    }
+
+    .tabs .active {
+      background: #c2a370;
+      color: white;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin: 10px 0 5px;
+      color: #555;
+    }
+
+    input[type="text"], input[type="password"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      margin-bottom: 10px;
+      outline: none;
+    }
+
+    .options {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9em;
+      color: #777;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .options a {
+      text-decoration: none;
+      color: #a88b61;
+      margin-top: 5px;
+    }
+
+    .login-btn {
+      background: #a88b61;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 25px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    @media (max-width: 991px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .left, .right {
+        width: 100%;
+        height: 50%;
+      }
+
+      .left img {
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .right {
+        height: auto;
+        padding: 40px 20px;
+      }
+
+      .login-box {
+        max-width: 100%;
+      }
+
+      .options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tabs button {
+        padding: 8px 16px;
+        font-size: 0.9em;
+      }
+
+      .login-btn {
+        font-size: 0.95em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+  <div class="container">
+    <div class="left">
+      <img src="Wallpaper samurai, armor, katana, lantern, dark, red, AI 4K by ♤CRISTIAN♧¿_ Download wallpaper samurai, armor, katana, lantern, dark, red for free_.jpeg" alt="Samurai Warrior">
+    </div>
+    <div class="right">
+      <div class="login-box">
+        <h2>Welcome to OASIS..!</h2>
+        <div class="tabs">
+          <button class="active" onclick="switchTab('login')">Login</button>
+          <button onclick="switchTab('register')">Register</button>
+        </div>
+        <form id="login-form">
+          <label>User name</label>
+          <input type="text" id="login-name" placeholder="Enter your User name">
+          
+          <label>Password</label>
+          <input type="password" id="login-password" placeholder="Enter your Password">
+          
+          <div class="options">
+            <label><input type="checkbox"> Remember me</label>
+            <a href="#">Forgot Password?</a>
+          </div>
+          
+          <button type="button" class="login-btn" onclick="login()">Login</button>
+        </form>
+
+        <form id="register-form" style="display: none;">
+          <label>Team Name</label>
+          <input type="text" id="reg-name" placeholder="Enter team name">
+          
+          <label>Password</label>
+          <input type="password" id="reg-password" placeholder="Create a password">
+          
+          <button type="button" class="login-btn" onclick="register()">Register</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const teams = [];
+
+    function switchTab(tab) {
+      const loginBtn = document.querySelectorAll('.tabs button')[0];
+      const regBtn = document.querySelectorAll('.tabs button')[1];
+      const loginForm = document.getElementById('login-form');
+      const regForm = document.getElementById('register-form');
+
+      if (tab === 'login') {
+        loginBtn.classList.add('active');
+        regBtn.classList.remove('active');
+        loginForm.style.display = 'block';
+        regForm.style.display = 'none';
+      } else {
+        loginBtn.classList.remove('active');
+        regBtn.classList.add('active');
+        loginForm.style.display = 'none';
+        regForm.style.display = 'block';
+      }
+    }
+
+    function register() {
+      const name = document.getElementById('reg-name').value.trim();
+      const password = document.getElementById('reg-password').value.trim();
+
+      if (!name || !password) {
+        alert('Please enter both name and password');
+        return;
+      }
+
+      teams.push({ name, password });
+      alert('Team registered! You can now login.');
+      switchTab('login');
+    }
+
+    function login() {
+      const name = document.getElementById('login-name').value.trim();
+      const password = document.getElementById('login-password').value.trim();
+
+      const found = teams.find(t => t.name === name && t.password === password);
+
+      if (found) {
+        alert(`Welcome ${name}, you are logged in!`);
+      } else {
+        alert('Invalid credentials');
+      }
+    }
+  </script>
+</body>
+</html>
