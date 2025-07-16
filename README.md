@@ -39,7 +39,7 @@ We welcome contributions from all team members and the wider community. Please s
 
 ## License
 
-(Add license information here if applicable.)
+-
 
 ## Contact
 
