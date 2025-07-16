@@ -1,42 +1,50 @@
 # OasisProtocol
 
 Welcome to **OasisProtocol**!  
-This repository was created and is maintained by [kaush-r](https://github.com/kaush-r).
+This repository is developed and maintained by our collaborative team, **404**.
 
 ## Summary
 
-OasisProtocol is a public repository focused on HTML-based development. The main branch of this project is `main`, and all contributions are managed through standard GitHub workflows. The repository aims to provide a foundation for web-based solutions or protocols (please update this section with specific details about your project's goals and features).
+OasisProtocol is an open-source project focused on HTML-based development. The repository provides a foundation for building web-based protocols and solutions. All contributions, issue tracking, and project management are handled transparently through GitHub, enabling effective teamwork and innovation.
+
+## Team 404 - Collaborators
+
+We, Team 404, work together as one to achieve our goals. Meet our contributors:
+
+- [kaush-r](https://github.com/kaush-r)
+- [ChaXRium](https://github.com/ChaXRium) 
+- [shehan20040221](https://github.com/shehan20040221)
+- [ssdweerasinghe](https://github.com/ssdweerasinghe)
 
 ## Features
 
-- Built using HTML as the primary language
-- Open-source and public for contributions
-- Supports issue tracking and project management via GitHub
+- Developed using HTML as the primary language
+- Public repository for open collaboration
+- GitHub issue tracking and project management
 
 ## Getting Started
 
-To get started with OasisProtocol:
+To get started:
 
 1. Clone the repository:
    ```bash
    git clone https://github.com/kaush-r/OasisProtocol.git
    ```
 2. Open the project files in your preferred code editor.
-3. (Add instructions for setup or usage specific to your project)
+3. (Add specific setup or usage instructions here)
 
 ## Contributing
 
-We welcome contributions!  
-Please submit issues or pull requests as needed.
+We welcome contributions from all team members and the wider community. Please submit issues or pull requests for improvements.
 
 ## License
 
-(Add license details here if applicable.)
+(Add license information here if applicable.)
 
 ## Contact
 
-For questions or suggestions, contact the repository owner via [GitHub](https://github.com/kaush-r).
+For questions or suggestions, reach out to any team member via GitHub.
 
 ---
 
-> _Please update the Summary and Getting Started sections with specific information about your project's objectives and usage. If you provide more details, I can generate a more tailored README for you._
+> _We are Team 404, united in our mission to deliver quality work through OasisProtocol._
